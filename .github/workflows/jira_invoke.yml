@@ -8,4 +8,4 @@ jobs:
   handle:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Triggered by Jira issue: ${{ github.event.client_payload.issue_key }}"
+      - run: echo "Triggered by Jira issue: ${{ github.event.client_payload }}"
