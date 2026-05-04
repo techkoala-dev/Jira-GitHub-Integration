@@ -1,0 +1,11 @@
+name: Jira Service Request Handler   # this specific workflow
+
+on:
+  repository_dispatch:
+    types: [jira-issue-created]       # only fires for this exact event type
+
+jobs:
+  handle:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Triggered by Jira issue: ${{ github.event.client_payload.issue_key }}"
