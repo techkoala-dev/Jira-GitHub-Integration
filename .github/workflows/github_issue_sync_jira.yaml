@@ -8,9 +8,6 @@ jobs:
   sync-issue-status-to-jira:
     runs-on: ubuntu-latest
 
-    # Only run on issues (not PRs)
-    if: ${{ !github.event.projects_v2_item.content_url.includes('/pull/') }}
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
