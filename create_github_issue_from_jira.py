@@ -22,7 +22,8 @@ def create_github_issue_from_jira(jira_issue_key, jira_issue_summary, jira_issue
     }
     payload = {
         "title": f"Jira Issue: {jira_issue_key} -- {jira_issue_summary}",
-        "body": f"Imported from Jira Issue {jira_issue_key}\n\n{jira_issue_description}"
+        "body": f"Imported from Jira Issue {jira_issue_key}\n\n{jira_issue_description}",
+        "labels" : ["jira-issue"]
     }
     response = requests.post(url, json=payload, headers=headers)
     if response.status_code == 201:
