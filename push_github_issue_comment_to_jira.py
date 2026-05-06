@@ -125,11 +125,11 @@ def check_if_issue_is_linked_to_jira(repo_owner, repo_name, issue_number, projec
         return False
 
 
-def push_comment_to_jira_if_intended(repo_owner, repo_name, issue_number, comment_body, project_name, jira_label):
+def push_comment_to_jira_if_intended(repo_owner, repo_name, issue_number, issue_title, comment_body, project_name, jira_label):
     if check_if_comment_is_for_jira(comment_body):
         print("Comment is intended for Jira. Checking if issue is linked to Jira...")
         if check_if_issue_is_linked_to_jira(repo_owner, repo_name, issue_number, project_name, jira_label):
-            jira_issue_key = get_jira_issue_key_from_github_issue(comment_body)
+            jira_issue_key = get_jira_issue_key_from_github_issue(issue_title)
             if jira_issue_key:
                 push_comment_to_jira(jira_issue_key, comment_body)
             else:
@@ -140,4 +140,4 @@ def push_comment_to_jira_if_intended(repo_owner, repo_name, issue_number, commen
         print("Comment is not intended for Jira. Skipping.")
 
 
-push_comment_to_jira_if_intended(repo_owner, repo_name, issue_number, issue_comment, project_name, jira_label)
+push_comment_to_jira_if_intended(repo_owner, repo_name, issue_number, issue_title, issue_comment, project_name, jira_label)
