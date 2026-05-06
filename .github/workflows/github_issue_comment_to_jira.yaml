@@ -20,6 +20,8 @@ jobs:
 
       - name: Publish comment to Jira if intended
         env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_PROJECT_NAME: "Jira-GitHub-Tracker"
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
           COMMENT_BODY: ${{ github.event.comment.body }}
@@ -27,11 +29,9 @@ jobs:
           COMMENT_ID: ${{ github.event.comment.id }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ github.event.repository.name }}
+          JIRA_LABEL: "jira-issue"
+          JIRA_EMAIL: "techkoala6@gmail.com"
+          JIRA_DOMAIN: "dev-tech-koala.atlassian.net"
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         run: |
-            echo "Checking if comment is intended for Jira..."
-            echo "Comment Body: $COMMENT_BODY"
-            echo "Comment Author: $COMMENT_AUTHOR"
-            echo "Issue Number: $ISSUE_NUMBER"
-            echo "Issue Title: $ISSUE_TITLE"
-            echo "Repository Owner: $REPO_OWNER"
-            echo "Repository Name: $REPO_NAME"
+          python push_github_issue_comment_to_jira.py
