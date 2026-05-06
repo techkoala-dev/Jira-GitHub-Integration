@@ -30,13 +30,16 @@ headers = {
     "Accept": "application/vnd.github+json"                
 }
 
-def get_jira_issue_key_from_github_issue(issue_title):
-    return issue_title.split("--")[0].replace("Jira Issue: ", "").strip() if "--" in issue_title else None
+def get_jira_issue_key_from_github_issue(issue_title,delimiter=" -- "):
+    print(f"Extracting Jira issue key from GitHub issue title: {issue_title}")
+    jira_issue_key = issue_title.split(delimiter)[0].replace("Jira Issue: ", "").strip() if delimiter in issue_title else None
+    print(f"Extracted Jira issue key: {jira_issue_key}")
+    return jira_issue_key
 
 
 def check_if_comment_is_for_jira(comment_body):
-    # Simple Check: if comment contains "/INTERNAL", we treat it as intended for Jira
-    return "/INTERNAL" in comment_body.upper()
+    # Simple Check: if comment contains "/CLIENT", we treat it as intended for Jira
+    return "/CLIENT" in comment_body.upper()
 
 
 def push_comment_to_jira(jira_issue_key, comment_body, is_public=True):
