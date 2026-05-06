@@ -1,0 +1,24 @@
+name: Sync GitHub Issues Status to Jira
+
+on:
+  projects_v2_item:
+    types: [edited]
+
+jobs:
+  sync-issue-status-to-jira:
+    runs-on: ubuntu-latest
+
+    # Only run on issues (not PRs)
+    if: ${{ !github.event.projects_v2_item.content_url.includes('/pull/') }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Dump event payload
+        run: cat $GITHUB_EVENT_PATH
+      
+      - name: Display changes
+        run: |
+          echo "Changes: ${{ toJson(github.event.changes) }}"
+          echo "Projects Item: ${{ toJson(github.event.projects_v2_item) }}"
